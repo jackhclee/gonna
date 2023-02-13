@@ -1,6 +1,6 @@
-# fly.toml file generated for gonna on 2022-12-05T20:53:00Z
+# fly.toml file generated for gonna-test on 2023-02-13T00:29:05Z
 
-app = "gonna"
+app = "gonna-test"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []

@@ -3,17 +3,17 @@ const app = express();
 const port = process.env.PORT || 8080;
 const dotenv = require("dotenv").config()
 
-app.get("/", function(req, res) {
-const { Client } = require('pg')
-const client = new Client()
-await client.connect()
+app.get("/", async function(req, res) {
+  const { Client } = require('pg')
+  const client = new Client({
+  connectionString:  process.env.DATABASE_URL
+})
+  await client.connect()
  
-const res = await client.query('SELECT $1::text as message', ['Hello world!'])
-console.log(res.rows[0].message) // Hello world!
-await client.end()
-
-
-    res.send(res.rows[0].message + new Date() + process.env.GITHUB_SHA);
+  const dbRes = await client.query('SELECT name from prod.book where id = $1', [1])
+  console.log(dbRes.rows[0].name) // Hello world!
+  await client.end()
+  res.send(dbRes.rows[0].name + new Date() + process.env.GITHUB_SHA);
   }
 )
 
